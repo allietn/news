@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'forecast_io'
+gem 'httparty'
 gem 'geocoder'
 gem 'httparty'
 gem 'sinatra'
