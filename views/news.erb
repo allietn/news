@@ -31,11 +31,40 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  
-    <ul>
-        <% for day in @forecast["daily"] %>
-            <li><%= " high: #{day["temp"]["max"]} and #{day["weather"][0]["description"]}" %> </li>
-       <% end %>
-    </ul>
+
+    <div class="container mt-5">
+      <h5>The current temperature in Evanston is </h5>
+      <ul><% "#{@forecast["current"]["temp"]}" %></ul>
+    </div>
+
+    <br><br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6"><h2>The Weather This Week</h2></div>
+    <div class="col-6"><h2>The Headlines This Week</h2></div>
+
+    <!-- Force next columns to break to new line at md breakpoint and up -->
+    <div class="w-100 d-none d-md-block"></div>
+
+    <div class="col-6">
+        <ul>
+           <% i = 1 %>
+            <% for day in @forecast["daily"] %>
+                <li><%= "On day #{i}, the high is #{day["temp"]["max"]} degrees F with #{day["weather"][0]["description"]}" %> </li>
+                <% i = i + 1 %> 
+            <% end %>
+        </ul>
+    </div>
+    <div class="col-6">
+        <ul>
+            <% for top in @todaystop %>
+                <li><%= top %></li>
+            <% end %>
+        </ul>
+    </div>
+  </div>
+</div>
+
     </body>
 </html>

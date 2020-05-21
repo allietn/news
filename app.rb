@@ -17,11 +17,29 @@ get "/" do
 
   # make the call
    @forecast = HTTParty.get(url).parsed_response.to_hash
-    i = 1
+
+   currentTemp = "The current temperature in Evanston is #{@forecast["current"]["temp"]}"
+   puts currentTemp
+   
+   i = 1
     for day in @forecast["daily"]
         puts "On day #{i}, high: #{day["temp"]["max"]} and #{day["weather"][0]["description"]}"
-        i = i+1
+        i = i + 1
     end
-  ### Get the news
-  view 'news'
+
+    ### Get the news
+
+    url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=ff9b44dbf11945b1937666f6368c39a4"
+    @news = HTTParty.get(url).parsed_response.to_hash
+
+    top = []
+    
+    for headline in @news["articles"]
+        top << "#{headline["title"]} happened. Learn more at #{headline["url"]}"
+    end
+
+    @todaystop = top[0,3]
+
+    view 'news'
+
 end
